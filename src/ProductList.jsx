@@ -6,10 +6,11 @@ import { addItem } from "./CartSlice"
 import "./ProductList.css"
 import CartItem from "./CartItem"
 
+// eslint-disable-next-line react/prop-types
 function ProductList({ onHomeClick }) {
   const dispatch = useDispatch()
   const [showCart, setShowCart] = useState(false)
-  const [showPlants, setShowPlants] = useState(false) // State to control the visibility of the About Us page
+  const [, setShowPlants] = useState(false) // State to control the visibility of the About Us page
   const [addedToCart, setAddedToCart] = useState({})
 
   const cartItems = useSelector((state) => state.cart.items)
