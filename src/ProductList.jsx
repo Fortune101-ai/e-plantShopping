@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { addItem } from "./CartSlice"
 import "./ProductList.css"
 import CartItem from "./CartItem"
@@ -11,6 +11,12 @@ function ProductList({ onHomeClick }) {
   const [showCart, setShowCart] = useState(false)
   const [showPlants, setShowPlants] = useState(false) // State to control the visibility of the About Us page
   const [addedToCart, setAddedToCart] = useState({})
+
+  const cartItems = useSelector((state) => state.cart.items)
+
+  const calculateTotalQuantity = () => {
+    return cartItems ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0
+  }
 
   const plantsArray = [
     {
@@ -299,7 +305,6 @@ function ProductList({ onHomeClick }) {
             </a>
           </div>
           <div>
-            {" "}
             <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
               <h1 className="cart">
                 <svg
@@ -322,6 +327,24 @@ function ProductList({ onHomeClick }) {
                     id="mainIconPathAttribute"
                   ></path>
                 </svg>
+                {calculateTotalQuantity() > 0 && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "10px",
+                      right: "10px",
+                      backgroundColor: "red",
+                      color: "white",
+                      borderRadius: "50%",
+                      padding: "2px 6px",
+                      fontSize: "12px",
+                      minWidth: "20px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {calculateTotalQuantity()}
+                  </span>
+                )}
               </h1>
             </a>
           </div>
